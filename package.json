@@ -1,0 +1,19 @@
+{
+  "name": "challenge-ticmas",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "vitest",
+    "coverage": "vitest run --coverage"
+  },
+  "keywords": [],
+  "author": "Jwilv",
+  "license": "ISC",
+  "dependencies": {
+    "mongoose": "^8.3.2"
+  },
+  "devDependencies": {
+    "vitest": "^1.5.2"
+  }
+}
