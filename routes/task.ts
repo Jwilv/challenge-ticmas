@@ -20,6 +20,10 @@ taskRouter.get('/:id', (req: Request, res: Response) => dashboardApiProxyAdapter
 
 taskRouter.delete('/:id', (req: Request, res: Response) => dashboardApiProxyAdapter.deleteTaskById(req, res));
 
+taskRouter.patch('/:id/status', (req: Request, res: Response) => dashboardApiProxyAdapter.updateStatusByid(req, res));
+
 taskRouter.get('/status/:status', (req: Request, res: Response) => dashboardApiProxyAdapter.getTaskByStatus(req, res));
+
+taskRouter.get('/:id/days', (req: Request, res: Response) => dashboardApiProxyAdapter.getDays(req, res));
 
 export default taskRouter

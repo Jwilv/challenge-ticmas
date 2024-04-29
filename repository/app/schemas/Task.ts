@@ -1,10 +1,12 @@
 import mongoose, { Schema, Model } from 'mongoose'
 
+export type TaskStatus = 'pending' | 'in-progress' | 'finished' | 'deleted'
+
 export interface Task {
     id: string;
     title: string;
     description: string;
-    status: string;
+    status: TaskStatus;
     createdAt: Date;
 }
 
@@ -16,7 +18,7 @@ const TaskSchema = new Schema({
     status: {
         type: String,
         enum: {
-            values: ['pending', 'in-progress', 'finished'],
+            values: ['pending', 'in-progress', 'finished', 'deleted'],
             message: '{VALUE} no es un estado permitido'
         },
         default: 'pending'

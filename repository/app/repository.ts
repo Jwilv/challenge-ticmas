@@ -1,14 +1,14 @@
 import { ForManagingTask } from "../ports/drivers/";
-import { Task, TaskModel } from "../app/schemas/Task";
+import { Task, TaskModel, TaskStatus } from "../app/schemas/Task";
 import { Task as ApiTask } from '../../services/dashboard-api/app/schemas/Task';
 import { ForMonitoring } from "../ports/drivens/for-monitoring";
 
 
 export class Repository implements ForManagingTask {
 
-     constructor(
-        private readonly monitoring : ForMonitoring,
-    ) {}
+    constructor(
+        private readonly monitoring: ForMonitoring,
+    ) { }
 
     async create(task: ApiTask): Promise<Task> {
         const newTask = await TaskModel.create(task);
@@ -20,12 +20,24 @@ export class Repository implements ForManagingTask {
     }
 
     async update(task: Task): Promise<Task> {
-        const { id, createdAt, ...rest} = task
+        const { id, createdAt, ...rest } = task
         const newTask = await TaskModel.findOneAndUpdate({ _id: id }, rest)
         if (!newTask) {
             this.monitoring.log('Create Task', 'Task not found');
             throw new Error('Task not found');
         }
+        return newTask
+    }
+
+    async updateStatusByid(id: string, status: TaskStatus): Promise<Task> {
+
+        const newTask = await TaskModel.findOneAndUpdate({ _id: id }, { status: status })
+        if (!newTask) {
+            this.monitoring.log('Create Task', 'Task not found');
+            throw new Error('Task not found');
+        }
+        newTask.status = status
+
         return newTask
     }
 
@@ -48,5 +60,18 @@ export class Repository implements ForManagingTask {
             throw new Error('Task not found');
         }
         return task
+    }
+
+    async getDays(id: string): Promise<number> {
+        const task = await TaskModel.findById({ _id: id })
+        if (!task) {
+            this.monitoring.log('Get Task', 'Task not found');
+            throw new Error('Task not found');
+        }
+
+        const daysInMilliseconds = new Date().getTime() - new Date(task.createdAt).getTime();
+        const days = daysInMilliseconds / (1000 * 60 * 60 * 24); //Convert milliseconds to days
+
+        return days
     }
 } 

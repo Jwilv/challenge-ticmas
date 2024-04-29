@@ -24,7 +24,15 @@ export class TaskingProxyAdapter implements ForTasking {
         return await this.dashboardApi.updateTask(req, resp)
     }
 
+    async updateStatusByid(req: Request, resp: Response): Promise<Response> {
+        return await this.dashboardApi.updateStatusByid(req, resp)
+    }
+
     async deleteTaskById(req: Request, resp: Response): Promise<Response> {
         return await this.dashboardApi.deleteTaskById(req, resp)
+    }
+
+    async getDays(req: Request, resp: Response): Promise<Response> {
+        return await this.dashboardApi.getDays(req, resp)
     }
 }
