@@ -1,11 +1,10 @@
-import { Task as RepoTask } from "../../../../repository/app/schemas"; 
-import { Task } from "../../app/schemas";
+import { Request, Response } from "express";
 
 export interface ForTasking {
-    getTaskById(id: string): Promise<RepoTask>;
-    getAllTasks(): Promise<RepoTask[]>;
-    getTaskByStatus(status: string): Promise<RepoTask[]>
-    createTask(task: Task): Promise<RepoTask>;
-    updateTask(task: RepoTask): Promise<RepoTask>;
-    deleteTaskById(id: string): Promise<{ id : string}>;
+    getTaskById(req: Request, resp: Response): Promise<Response>;
+    getAllTasks(req: Request, resp: Response): Promise<Response>;
+    getTaskByStatus(req: Request, resp: Response): Promise<Response>
+    createTask(req: Request, resp: Response): Promise<Response>;
+    updateTask(req: Request, resp: Response): Promise<Response>;
+    deleteTaskById(req: Request, resp: Response): Promise<Response>;
 }

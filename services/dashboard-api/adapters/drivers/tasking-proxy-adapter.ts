@@ -1,31 +1,30 @@
 import { ForTasking } from '../../ports/drivers'
-import { Task as TaskRepo } from '../../../../repository/app/schemas'
-import { Task } from '../../app/schemas'
+import { Request, Response } from 'express'
 
 export class TaskingProxyAdapter implements ForTasking {
     constructor(private readonly dashboardApi: ForTasking) { }
 
-    async getTaskById(id: string): Promise<TaskRepo> {
-        return await this.dashboardApi.getTaskById(id)
+    async getTaskById(req: Request, resp: Response): Promise<Response> {
+        return await this.dashboardApi.getTaskById(req, resp)
     }
 
-    async getAllTasks(): Promise<TaskRepo[]> {
-        return await this.dashboardApi.getAllTasks()
+    async getAllTasks(req: Request, resp: Response): Promise<Response> {
+        return await this.dashboardApi.getAllTasks(req, resp)
     }
 
-    async getTaskByStatus(status: string): Promise<TaskRepo[]> {
-        return await this.dashboardApi.getTaskByStatus(status)
+    async getTaskByStatus(req: Request, resp: Response): Promise<Response> {
+        return await this.dashboardApi.getTaskByStatus(req, resp)
     }
 
-    async createTask(task: Task): Promise<TaskRepo> {
-        return await this.dashboardApi.createTask(task)
+    async createTask(req: Request, resp: Response): Promise<Response> {
+        return await this.dashboardApi.createTask(req, resp)
     }
 
-    async updateTask(task: TaskRepo): Promise<TaskRepo> {
-        return await this.dashboardApi.updateTask(task)
+    async updateTask(req: Request, resp: Response): Promise<Response> {
+        return await this.dashboardApi.updateTask(req, resp)
     }
 
-    async deleteTaskById(id: string): Promise<void> {
-        return await this.dashboardApi.deleteTaskById(id)
+    async deleteTaskById(req: Request, resp: Response): Promise<Response> {
+        return await this.dashboardApi.deleteTaskById(req, resp)
     }
 }

@@ -7,5 +7,5 @@ export interface ForTaskManagement {
     getTaskByStatus(status: string): Promise<RepoTask[]>
     createTask(task: Task): Promise<RepoTask>;
     updateTask(task: RepoTask): Promise<RepoTask>;
-    deleteTaskById(id: string): Promise<{ id: string }>;
+    deleteTaskById(id: string): Promise<void>;
 }
