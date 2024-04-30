@@ -2,7 +2,6 @@
 import { ForTaskManagement } from '../../ports/drivens/for-task-management';
 import { Task as RepoTask, TaskStatus } from '../../../../repository/app/schemas';
 import { Task } from '../../app/schemas'
-import { ForManagingTask } from '../../../../repository/ports/drivers';
 import { taskManagerProxy } from '../../../../repository/app/composition-root';
 
 export class TaskManagement implements ForTaskManagement {

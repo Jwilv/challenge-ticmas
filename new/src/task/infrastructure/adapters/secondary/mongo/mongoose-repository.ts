@@ -1,0 +1,43 @@
+import { SimpleTask, Task } from '../../../../domain/entity/task';
+import { ITaskRepository } from '../../../../domain/ports/secondary/db/task-respository-interface';
+import { TaskModel } from './schemas/task';
+
+export class MongooseRepository implements ITaskRepository {
+
+    async create(task: SimpleTask): Promise<Task> {
+        const newTask = await TaskModel.create(task);
+        if (!newTask) {
+            throw new Error('Task not created');
+        }
+        return newTask;
+    }
+
+    async findById(id: string): Promise<Task> {
+        const task = await TaskModel.findOne({ _id: id });
+        if (!task) {
+            throw new Error('Task not found');
+        }
+        return task;
+    }
+
+    async findAll(): Promise<Task[]> {
+        const tasks = await TaskModel.find();
+        if (!tasks) {
+            throw new Error('Tasks not found');
+        }
+        return tasks;
+    }
+
+    async update(task: Task): Promise<Task> {
+        const { id, createdAt, ...rest } = task
+        const newTask = await TaskModel.findOneAndUpdate({ _id: id }, rest)
+        if (!newTask) {
+            throw new Error('Task not found');
+        }
+        return newTask
+    }
+
+    async remove(id: string): Promise<void> {
+        await TaskModel.deleteOne({ _id: id })
+    }
+}

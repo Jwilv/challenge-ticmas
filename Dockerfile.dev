@@ -8,11 +8,11 @@ COPY pnpm-lock.yaml package.json ./
 RUN npm install -g pnpm
 # Install dependencies
 RUN pnpm i 
+
+RUN pnpm i nodemon 
 # Copy the application code 
 COPY . .
-# Build the TypeScript code
-RUN pnpm run build
 # Expose the app
 EXPOSE 3050
 # Start the application
-CMD ["pnpm", "start"]
+CMD ["pnpm", "dev"]
