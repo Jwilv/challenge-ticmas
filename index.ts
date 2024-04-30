@@ -1,7 +1,7 @@
 import express from 'express';
-import { dbConnection } from './infrastructure/dbConfig';
+import { dbConnection } from './src/config/dbConfig';
 import { config } from 'dotenv'
-import taskRouter from './routes/task';
+import taskRouter from './src/app/infrastructure/secondary/routes/routes-task';
 const cors = require('cors')
 
 //obtenemos env con su config
