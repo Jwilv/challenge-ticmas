@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 export const dbConnection = async () => {
     mongoose.set('strictQuery', true);
     try {
-        await mongoose.connect('mongodb+srv://mern_user:iabwq7dXvCd5sgYy@cluster0.sxvlsh2.mongodb.net/ticmas');
+        await mongoose.connect('mongodb://notUser:notPassword@localhost:27020/');
         console.log('DB online');
     } catch (error) {
         console.log(error)

@@ -1,11 +1,5 @@
 version: "2.0"
 services:
-  tic-api:
-    build: .
-    ports:
-      - "3050:3050"
-    links:
-      - tic-db
   tic-db:
     image: mongo
     ports:

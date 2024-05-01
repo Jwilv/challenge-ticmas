@@ -1,9 +1,9 @@
 version: "2.0"
 services:
-  tic-db-dev:
+  tic-db-test:
     image: mongo
     ports:
-      - "27017:27017"
+      - "27020:27017"
     environment:
       - MONGO_INITDB_ROOT_USERNAME=notUser
       - MONGO_INITDB_ROOT_PASSWORD=notPassword
@@ -13,4 +13,4 @@ services:
 volumes:
   mongo-data:
 
-    # docker compose -f docker-compose-dev.yml up
+    # docker compose -f docker-compose-test.yml up
