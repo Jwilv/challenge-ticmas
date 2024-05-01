@@ -1,5 +1,5 @@
 import { Router, Request, Response } from 'express'
-import { appApiController } from '../../primary/controllers/app-api.controller';
+import { appApiController } from '../../primary/controllers/api-task-controller';
 import { validateFields } from '../../../domain/middlewares/validate-fields';
 import { validationSimpleTask, validationTask } from '../../../domain/validations/validation';
 

@@ -2,4 +2,4 @@ import { FindByStatusService } from '../../../../aplication/fin-by-status/find-b
 import { mongoRepository } from '../../secondary/mongo/mongo';
 
 
-export const findByStatusController = new FindByStatusService(mongoRepository)
+export const findByStatusService = new FindByStatusService(mongoRepository)

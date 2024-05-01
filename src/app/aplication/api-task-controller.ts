@@ -2,19 +2,19 @@ import { Request, Response } from "express";
 import { IAppApiController } from "../domain/ports/primary/app-api.controler.interface";
 import { Task, TaskStatus, taskStatus } from "../../task/domain/entity/task";
 import {
-    createTaskController,
-    findAllTaskController,
-    findByStatusController,
-    findTaskByIdController,
-    findTaskDaysController,
-    removeTaskController,
-    updateStatusController,
-    updateTaskController,
+    createTaskService,
+    findAllTaskService,
+    findByStatusService,
+    findTaskByIdService,
+    findTaskDaysService,
+    removeTaskService,
+    updateStatusService,
+    updateTaskService,
 } from "../../task/infrastructure/adapters/primary/controllers";
 
 
 
-export class AppApiService implements IAppApiController {
+export class ApiTaskController implements IAppApiController {
 
     async create(req: Request, res: Response): Promise<Response> {
         const { title, description, status }: Task = req.body
@@ -29,7 +29,7 @@ export class AppApiService implements IAppApiController {
         const task = { title, description, status }
 
         try {
-            const taskCreated = await createTaskController.create(task)
+            const taskCreated = await createTaskService.create(task)
 
             return res.status(201).json({
                 ok: true,
@@ -46,7 +46,7 @@ export class AppApiService implements IAppApiController {
 
     async getAll(req: Request, res: Response): Promise<Response> {
         try {
-            const tasks = await findAllTaskController.findAll()
+            const tasks = await findAllTaskService.findAll()
             return res.status(200).json({
                 ok: true,
                 data: tasks
@@ -71,7 +71,7 @@ export class AppApiService implements IAppApiController {
         }
 
         try {
-            const task = await findTaskByIdController.findById(id)
+            const task = await findTaskByIdService.findById(id)
             return res.status(200).json({
                 ok: true,
                 data: task
@@ -95,7 +95,7 @@ export class AppApiService implements IAppApiController {
         }
 
         try {
-            const tasks = await findByStatusController.getByStatus(status as TaskStatus)
+            const tasks = await findByStatusService.getByStatus(status as TaskStatus)
             return res.status(200).json({
                 ok: true,
                 data: tasks
@@ -118,7 +118,7 @@ export class AppApiService implements IAppApiController {
         }
 
         try {
-            const days = await findTaskDaysController.getDays(id)
+            const days = await findTaskDaysService.getDays(id)
             return res.status(200).json({
                 ok: true,
                 data: { days }
@@ -142,7 +142,7 @@ export class AppApiService implements IAppApiController {
         }
 
         try {
-            await removeTaskController.remove(id);
+            await removeTaskService.remove(id);
             return res.status(200).json({
                 ok: true,
                 message: 'Task deleted successfully'
@@ -168,7 +168,7 @@ export class AppApiService implements IAppApiController {
         const task = { title, description, status, createdAt, id }
 
         try {
-            const taskUpdated = await updateTaskController.update(task)
+            const taskUpdated = await updateTaskService.update(task)
             return res.status(200).json({
                 ok: true,
                 data: taskUpdated
@@ -200,7 +200,7 @@ export class AppApiService implements IAppApiController {
         }
 
         try {
-            const taskUpdated = await updateStatusController.updateStatus(id, status)
+            const taskUpdated = await updateStatusService.updateStatus(id, status)
             return res.status(200).json({
                 ok: true,
                 data: taskUpdated

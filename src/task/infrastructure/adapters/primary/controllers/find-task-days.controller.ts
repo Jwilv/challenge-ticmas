@@ -2,4 +2,4 @@ import { FindTaskDaysService } from "../../../../aplication/find-task-days.ts/fi
 import { mongoRepository } from "../../secondary/mongo/mongo";
 
 
-export const findTaskDaysController = new FindTaskDaysService(mongoRepository)
+export const findTaskDaysService = new FindTaskDaysService(mongoRepository)

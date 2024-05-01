@@ -53,7 +53,7 @@ export class MongooseRepository implements ITaskRepository {
     }
 
     async updateStatus(id: string, status: TaskStatus): Promise<Task> {
-        const newTask = await TaskModel.findOneAndUpdate({ _id: id }, { status: status })
+        const newTask = await TaskModel.findOneAndUpdate({ _id: id }, { status })
         if (!newTask) {
             throw new Error('Task not found');
         }
