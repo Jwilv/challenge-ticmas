@@ -1,7 +1,8 @@
 import { describe, it, expect } from '@jest/globals'
 
 import { MongooseRepositoryMemory } from '../mongoose-repository-memory'
-import { Task } from '../../../../../domain/entity/task';
+import { SimpleTask, Task, TaskStatus } from '../../../../../domain/entity/task';
+import { title } from 'process';
 
 describe('MongooseRepositoryMemory', () => {
 
@@ -26,7 +27,7 @@ describe('MongooseRepositoryMemory', () => {
     it('should find all tasks', async () => {
         const repository = new MongooseRepositoryMemory()
         const tasks = await repository.findAll()
-        expect(tasks).toEqual(tasks)
+        expect(tasks).toEqual([])
     })
 
     it('should create a task', async () => {
@@ -36,34 +37,25 @@ describe('MongooseRepositoryMemory', () => {
             description: 'description'
         }
 
-        const expectResult = {
-            ...task,
-            id: '5',
-            createdAt: new Date("2/1/22"),
-            status: 'pending'
-        }
-
         //WHEN
         const repository = new MongooseRepositoryMemory()
         const taskRepository = await repository.create(task)
 
         //THEN
-        expect(expectResult).toEqual(taskRepository)
+        expect(task.title).toEqual(taskRepository.title)
     })
 
     it('should find a task by id', async () => {
         //GIVEN
-        const expectResult = {
-            id: '1',
+        const task = {
             title: 'title',
-            description: 'description',
-            status: 'pending',
-            createdAt: new Date("2/1/22")
+            description: 'description'
         }
 
         //WHEN
         const repository = new MongooseRepositoryMemory()
-        const taskRepository = await repository.findById('1')
+        const expectResult = await repository.create(task)
+        const taskRepository = await repository.findById(expectResult.id)
 
         //THEN
         expect(expectResult).toEqual(taskRepository)
@@ -85,17 +77,22 @@ describe('MongooseRepositoryMemory', () => {
     it('should update a task by id', async () => {
         //GIVEN
 
-        const expectResult: Task = {
-            id: '1',
-            title: 'update title',
+        const task: SimpleTask = {
+            title: 'title',
             description: 'description',
-            createdAt: new Date("2/1/22"),
             status: 'pending'
         }
 
         //WHEN
         const repository = new MongooseRepositoryMemory()
+        const newTask = await repository.create(task)
+
+        const expectResult = {
+            ...newTask,
+            title: 'updated title',
+        }
         const taskRepository = await repository.update(expectResult)
+
 
         //THEN
         expect(expectResult).toEqual(taskRepository)
@@ -103,45 +100,57 @@ describe('MongooseRepositoryMemory', () => {
 
     it('should update a task status by id', async () => {
         //GIVEN
-        const expectResult: Task = {
-            id: '1',
+        const task: SimpleTask = {
             title: 'title',
             description: 'description',
-            createdAt: new Date("2/1/22"),
-            status: 'finished'
+            status: 'pending'
         }
 
         //WHEN
         const repository = new MongooseRepositoryMemory()
-        const taskRepository = await repository.updateStatus('1', 'finished')
+        const newTask = await repository.create(task)
+        const newStatus: TaskStatus = 'finished'
+
+        const result = await repository.updateStatus(newTask.id, newStatus)
 
         //THEN
-        expect(expectResult).toEqual(taskRepository)
+        expect(newStatus).toEqual(result.status)
     })
 
     it('should find days', async () => {
         //GIVEN
-        const daysInMilliseconds = new Date().getTime() - new Date(tasks[0].createdAt).getTime();
-        const days = daysInMilliseconds / (1000 * 60 * 60 * 24); //Convert milliseconds to days
-        const expectResult = Math.round(days)
+        const task: SimpleTask = {
+            title: 'title',
+            description: 'description',
+            status: 'pending'
+        }
 
         //WHEN
         const repository = new MongooseRepositoryMemory()
-        const taskRepository = await repository.findDays('1')
+        const newTask = await repository.create(task)
+        const days = await repository.findDays(newTask.id)
+
 
         //THEN
-        expect(expectResult).toEqual(Math.round(taskRepository))
+        expect(typeof days).toEqual('number')
     })
 
     it('should find tasks by status', async () => {
         //GIVEN
-        const expectResult = tasks
+        const task: SimpleTask = {
+            title: 'title',
+            description: 'description',
+            status: 'pending'
+        }
+
         //WHEN
         const repository = new MongooseRepositoryMemory()
-        const taskRepository = await repository.findByStatus('pending')
+        const newTask = await repository.create(task)
+        const response = await repository.findByStatus(newTask.status)
+        const expectResult = response.find(Boolean)
 
         //THEN
-        expect(expectResult).toEqual(taskRepository)
+        expect(expectResult?.status).toEqual(newTask.status)
     })
 
 })

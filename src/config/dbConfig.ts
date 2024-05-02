@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 export const dbConnection = async () => {
 
@@ -9,7 +9,7 @@ export const dbConnection = async () => {
     mongoose.set('strictQuery', true);
     
     try {
-        await mongoose.connect(connection);
+        await mongoose.connect(connection!);
         console.log('DB online');
     } catch (error) {
         console.log(error)
