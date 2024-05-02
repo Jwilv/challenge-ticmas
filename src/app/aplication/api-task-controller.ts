@@ -11,6 +11,7 @@ import {
     updateStatusService,
     updateTaskService,
 } from "../../task/infrastructure/adapters/primary/controllers";
+import { InvalidStatusArgumentError } from "../../task/domain/exception/invalid-status-argument-error";
 
 
 
@@ -206,6 +207,14 @@ export class ApiTaskController implements IAppApiController {
                 data: taskUpdated
             })
         } catch (error) {
+
+            if (error instanceof InvalidStatusArgumentError) {
+                return res.status(400).json({
+                    ok: false,
+                    message: error.message
+                })
+            }
+
             return res.status(500).json({
                 ok: false,
                 message: 'Something went wrong'

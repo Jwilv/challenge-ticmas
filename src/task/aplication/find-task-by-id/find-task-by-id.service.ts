@@ -7,6 +7,7 @@ export class FindTaskByIdService implements IFindTaskByIdController {
     constructor(private readonly taskRepository: ITaskRepository) { }
 
     async findById(id: string): Promise<Task> {
+        if (!id) throw new Error('Id not provided')
         return await this.taskRepository.findById(id)
     }
 

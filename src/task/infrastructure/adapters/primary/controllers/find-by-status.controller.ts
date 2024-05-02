@@ -1,4 +1,4 @@
-import { FindByStatusService } from '../../../../aplication/fin-by-status/find-by-status.service';
+import { FindByStatusService } from '../../../../aplication/find-by-status/find-by-status.service';
 import { mongoRepository } from '../../secondary/mongo/mongo';
 
 
