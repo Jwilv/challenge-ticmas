@@ -23,6 +23,7 @@ export class MongooseRepositoryMemory implements ITaskRepository {
     async create(task: SimpleTask): Promise<Task> {
         await this.tasks.push({
             ...task,
+            description: task.description || '',
             id: '5',
             createdAt: new Date("2/1/22"),
             status: 'pending'

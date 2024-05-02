@@ -37,7 +37,7 @@ export class MongooseRepository implements ITaskRepository {
         if (!task) {
             throw new Error('Task not found');
         }
-        
+
         const daysInMilliseconds = new Date().getTime() - new Date(task.createdAt).getTime();
         const days = daysInMilliseconds / (1000 * 60 * 60 * 24); //Convert milliseconds to days
         return days
@@ -45,7 +45,7 @@ export class MongooseRepository implements ITaskRepository {
 
     async update(task: Task): Promise<Task> {
         const { id, createdAt, ...rest } = task
-        const newTask = await TaskModel.findOneAndUpdate({ _id: id }, rest)
+        const newTask = await TaskModel.findOneAndUpdate({ _id: id }, rest, { new: true })
         if (!newTask) {
             throw new Error('Task not found');
         }
@@ -53,11 +53,10 @@ export class MongooseRepository implements ITaskRepository {
     }
 
     async updateStatus(id: string, status: TaskStatus): Promise<Task> {
-        const newTask = await TaskModel.findOneAndUpdate({ _id: id }, { status })
+        const newTask = await TaskModel.findOneAndUpdate({ _id: id }, { status }, { new: true })
         if (!newTask) {
             throw new Error('Task not found');
         }
-        newTask.status = status
         return newTask
     }
 

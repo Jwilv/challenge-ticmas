@@ -123,14 +123,14 @@ describe('MongooseRepositoryMemory', () => {
         //GIVEN
         const daysInMilliseconds = new Date().getTime() - new Date(tasks[0].createdAt).getTime();
         const days = daysInMilliseconds / (1000 * 60 * 60 * 24); //Convert milliseconds to days
-        const expectResult = days
+        const expectResult = Math.round(days)
 
         //WHEN
         const repository = new MongooseRepositoryMemory()
         const taskRepository = await repository.findDays('1')
 
         //THEN
-        expect(expectResult).toEqual(taskRepository)
+        expect(expectResult).toEqual(Math.round(taskRepository))
     })
 
     it('should find tasks by status', async () => {

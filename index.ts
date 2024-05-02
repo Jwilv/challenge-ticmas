@@ -8,7 +8,7 @@ const cors = require('cors')
 config();
 
 //crear el servidor de express
-const app = express();
+export const app = express();
 
 //Data Base
 dbConnection();
@@ -24,7 +24,7 @@ app.use('/api/task', taskRouter);
 
 //escuchar peticiones
 // se obtiene el proceso de env y apuntamos/obtenemos el puerto 
-app.listen(process.env.PORT, () => {
+export const server = app.listen(process.env.PORT, () => {
     console.log(`Servidor corriendo en el puerto ${process.env.PORT}`)
     ///
 });

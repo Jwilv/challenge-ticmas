@@ -12,6 +12,6 @@ export interface Task {
 
 export interface SimpleTask {
     title: string;
-    description: string;
+    description?: string;
     status?: TaskStatus;
 }
