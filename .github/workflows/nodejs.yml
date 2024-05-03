@@ -23,7 +23,7 @@ jobs:
           mongoDBVersion: ${{ matrix.mongodb-version }}
       - name: npm install
         run: |
-          npm i pnpm
+          npm install -g pnpm
       - name: pnpm install
         run: |
           pnpm install
