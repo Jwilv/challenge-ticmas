@@ -22,6 +22,16 @@
 
     pnpm run test:api
 
+## ENV
+## PORT Server
+    PORT = 
+
+## MongoDB Url Development
+    MONGO_DB_URL_DEV = 
+
+## MongoDB Url Test
+    MONGO_DB_URL_TEST = 
+
 # REST API
 
 ## Get list of Task
