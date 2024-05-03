@@ -23,16 +23,13 @@ jobs:
           mongoDBVersion: ${{ matrix.mongodb-version }}
       - name: npm install
         run: |
-          npm install -g pnpm
-      - name: pnpm install
+          npm install
+      - name: npm run build
         run: |
-          pnpm install
-      - name: pnpm run build
+          npm run build
+      - name: npm run test unit
         run: |
-          pnpm run build
-      - name: pnpm run test unit
+          npm run test:unit
+      - name: npm run test e2e
         run: |
-          pnpm run test:unit
-      - name: pnpm run test e2e
-        run: |
-          pnpm run test:api
+          npm run test:api
