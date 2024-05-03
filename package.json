@@ -9,7 +9,8 @@
     "dev": "cross-env NODE_ENV=development nodemon",
     "test": "cross-env NODE_ENV=test jest --verbose --silent",
     "test:watch": "pnpm run test -- --watch",
-    "test:api": "pnpm run test -- src/__test__/app.e2e.test.ts"
+    "test:unit": "pnpm run test --testMatch **/*.test.ts",
+    "test:api": "pnpm run test -- --testMatch **/*.e2e.ts"
   },
   "keywords": [],
   "author": "Jwilv",

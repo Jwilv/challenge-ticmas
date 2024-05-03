@@ -10,7 +10,7 @@
 
 ## Run the app in development
 
-    pnpm runn devs
+    pnpm run devs
 
 ## Run the tests
 
@@ -19,7 +19,7 @@
 ## Run the test api
 
     docker compose -f docker-compose-test.yml up
-    
+
     pnpm run test:api
 
 # REST API
